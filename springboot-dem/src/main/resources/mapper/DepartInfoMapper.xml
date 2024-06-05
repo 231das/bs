@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.buba.dao.DepartMapper">
+
+    <resultMap id="departInfo" type="com.buba.pojo.DepartInfo">
+        <id property="departId" column="departId"></id>
+        <result property="departName" column="departName"></result>
+        <result property="principalUser" column="principalUser"></result>
+        <result property="connectTelNo" column="connectTelNo"></result>
+        <result property="connectMobileTelNo" column="connectMobileTelNo"></result>
+        <result property="faxes" column="faxes"></result>
+        <result property="branchId" column="branchId"></result>
+        <association property="userInfo" javaType="com.buba.pojo.UserInfo">
+            <id property="userId" column="userId"></id>
+            <result property="userName" column="userName"></result>
+        </association>
+        <association property="institution" javaType="com.buba.pojo.Institution">
+            <id property="id" column="id"></id>
+            <result property="iname" column="iname"></result>
+            <result property="abbname" column="abbname"></result>
+        </association>
+    </resultMap>
+    <update id="updDepart">
+        update departinfo set departName = #{departName},principalUser = #{principalUser},connectTelNo = #{connectTelNo},connectMobileTelNo = #{connectMobileTelNo},faxes = #{faxes},branchId = #{branchId} where departId = #{departId}
+    </update>
+    <delete id="delDepart">
+        delete from departinfo where departId = #{id}
+    </delete>
+    <select id="selDepart" resultMap="departInfo">
+        select  * from institution r  inner join departinfo d on d.BranchId = r.id LEFT JOIN userinfo t on d.PrincipalUser = t.userId;
+    </select>
+</mapper>
+

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace指定dao层对应的接口 -->
+<mapper namespace="com.buba.dao.LoginMapper">
+
+    <select id="login" parameterType="map" resultType="com.buba.pojo.UserInfo">
+        select * from userinfo
+            <where>
+                username = #{username}
+                and
+                password = #{password}
+            </where>
+    </select>
+
+</mapper>

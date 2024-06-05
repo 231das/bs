@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.buba.dao.UserInfoMapper">
+
+    <resultMap id="userInfo" type="com.buba.pojo.UserInfo">
+        <id property="userId" column="userId"></id>
+        <result property="userName" column="userName"></result>
+        <result property="password" column="password"></result>
+        <result property="headImg" column="headImg"></result>
+        <result property="departId" column="departId"></result>
+        <result property="roleId" column="roleId"></result>
+        <result property="userState" column="userState"></result>
+        <association property="roleInfo" javaType="com.buba.pojo.RoleInfo">
+            <id property="roleId" column="roleId"></id>
+            <result property="roleName" column="roleName"></result>
+            <result property="roleDesc" column="roleDesc"></result>
+        </association>
+<!--        <association property="departInfo" javaType="com.buba.pojo.DepartInfo">-->
+<!--            <id property="departId" column="departId"></id>-->
+<!--            <result property="departName" column="departName"></result>-->
+<!--            <result property="branchId" column="branchId"></result>-->
+<!--        </association>-->
+        <association property="userState" javaType="com.buba.pojo.UserState">
+            <id property="userStateId" column="userStateId"></id>
+            <result property="userStateName" column="userStateName"></result>
+        </association>
+    </resultMap>
+    <select id="selUserInfo" resultType="com.buba.pojo.UserInfo">
+        select * from userinfo
+    </select>
+    <select id="selUserInfoCount" resultType="java.lang.Long">
+        select count(*) from userinfo
+    </select>
+    <select id="selUserInfoList" resultMap="userInfo">
+        select * from roleinfo r inner join userinfo s on s.RoleId = r.RoleId left join userState t on s.UserState = t.UserStateId
+</select>
+</mapper>
+
